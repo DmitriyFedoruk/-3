@@ -1,0 +1,22 @@
+#include <sys/stat.h> 
+#include <dlfcn.h> 
+#include <sys/types.h> 
+#include <stdlib.h> 
+#include <string.h> 
+#include <stdio.h> 
+#include <unistd.h> 
+int main (){ 
+void *handle; 
+char  pathname[40]; 
+printf("Enter path(Example /home/user/): "); 
+scanf("%s",pathname); 
+int n; 
+printf("Enter number "); 
+scanf("%d", &n); 
+mode_t mode = S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH; 
+handle = dlopen("/home/user/func.so", RTLD_LAZY); 
+void(*mkdirn)(char[],mode_t,int)=dlsym(handle,"mkdirn"); 
+mkdirn(pathname,mode,n); 
+dlclose(handle); 
+return 0; 
+} 

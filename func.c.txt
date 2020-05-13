@@ -1,0 +1,17 @@
+#include <sys/stat.h> 
+#include <sys/types.h> 
+#include <stdlib.h> 
+#include <string.h> 
+#include <stdio.h> 
+#include <unistd.h> 
+int mkdirn (const char * pathname, mode_t mode, int n){ 
+mkdir(pathname,mode); 
+for(int i=0;i<n+1;i++){ 
+char str[80]; 
+sprintf(str,"%s%s%d", pathname,"/",i); 
+printf("%s",str); 
+printf("\n"); 
+mkdir(str,mode); 
+} 
+ 
+} 
